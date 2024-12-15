@@ -1,0 +1,354 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: "Open Sans";
+}
+
+.carousel {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+.carousel .list .item {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+
+.carousel .list .item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: relative;
+}
+
+
+
+.carousel .list .item button {
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  background-color: white;
+  width: 120px;
+  padding: 10px 20px;
+  font-size: 10px;
+  transition: 0.5s;
+  letter-spacing: 2px;
+  border: none;
+  text-transform: uppercase;
+}
+
+.carousel .list .item button:hover {
+  background-color: #eee4;
+  color: white;
+}
+
+.carousel .list .item .content {
+  width: auto;
+  max-width: 400px;
+  text-shadow: 0 5px 15px rgba(177, 176, 176, 0.605);
+  color: white;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  flex-shrink: 1;
+  padding-right: 15px;
+  top: 20%;
+  left: 10%;
+}
+
+.carousel .list .item .content p {
+  font-size: 17px;
+  font-weight: 400;
+  /* display: flex;
+  flex-wrap: wrap; */
+}
+
+.carousel .list .item .content .company {
+  font-size: 18px;
+  color: #dadada;
+  text-transform: uppercase;
+  letter-spacing: 8px;
+  margin-bottom: 8px;
+}
+
+.carousel .list .item .content h1 {
+  color: rgb(235, 216, 13);
+  font-weight: bolder;
+  font-size: 48px;
+  text-transform: uppercase;
+}
+
+/*posters*/
+.poster {
+  width: 100vw;
+  position: absolute;
+  bottom: 50px;
+  left: 27%;
+  z-index: 99;
+  display: flex;
+  gap: 20px;
+}
+
+.poster .item img {
+  width: 200px;
+  height: 290px;
+  object-fit: cover;
+  border-radius: 20px;
+  flex-shrink: 0;
+}
+
+/*arrows*/
+.arrows {
+  position: absolute;
+  top: 78%;
+  left: 15%;
+  width: 100px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.arrows button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-weight: bold;
+  background-color: #eee4;
+  border: none;
+  color: white;
+  font-family: monospace;
+  font-size: large;
+  transition: 0.5s;
+  z-index: 100;
+}
+.arrows button:hover {
+  background-color: #eee;
+  color: #555;
+}
+
+/*content animation on next button click*/
+.carousel .list .item:nth-child(1) {
+  z-index: 1;
+}
+
+.carousel .list .item:nth-child(1) .company,
+.carousel .list .item:nth-child(1) .topic,
+.carousel .list .item:nth-child(1) .description,
+.carousel .list .item:nth-child(1) button {
+  transform: translateY(50px);
+  filter: blur(20px);
+  opacity: 0;
+  animation: showContent 0.5s 1s linear 1 forwards;
+}
+@keyframes showContent {
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+.carousel .list .item:nth-child(1) .topic {
+  animation-delay: 1.3s;
+}
+.carousel .list .item:nth-child(1) .description {
+  animation-delay: 1.6s;
+}
+.carousel .list .item:nth-child(1) button {
+  animation-delay: 1.9s;
+}
+
+/*implementing next button click*/
+
+/*Enlarging the image*/
+.carousel.next .list .item:nth-child(1) img {
+  width: 200px;
+  height: 290px;
+  border-radius: 20px;
+  position: absolute;
+  bottom: 50px;
+  left: 27%;
+  animation: enlargeImage 0.5s linear 1 forwards;
+}
+@keyframes enlargeImage {
+  to {
+    width: 100%;
+    height: 100%;
+    left: 0;
+    bottom: 0;
+    border-radius: 0;
+  }
+}
+
+/*making the last poster visible through animation*/
+.carousel.next .poster .item:nth-last-child(1) {
+  width: 0;
+  overflow: hidden;
+  animation: showPoster 0.5s linear 1 forwards;
+}
+@keyframes showPoster {
+  to {
+    width: 200px;
+  }
+}
+
+/*moving the all poster from right to left*/
+.carousel.next .poster {
+  transform: translateX(200px);
+  animation: transformPoster 0.5s linear 1 forwards;
+}
+@keyframes transformPoster {
+  to {
+    transform: translateX(0);
+  }
+}
+
+/*implementing prev button click*/
+
+.carousel.prev .list .item:nth-child(2) {
+  z-index: 2;
+}
+
+/*reducing the large image into thumbnail*/
+.carousel.prev .list .item:nth-child(2) img {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  animation: reduceImage 0.5s linear 1 forwards;
+}
+@keyframes reduceImage {
+  to {
+    width: 200px;
+    height: 290px;
+    bottom: 55px;
+    left: 27%;
+    border-radius: 20px;
+  }
+}
+
+/*it is reveling the first poster in poster list from 0 width to full width*/
+.carousel.prev .poster .item:nth-child(1) {
+  width: 0;
+  overflow: hidden;
+  opacity: 0;
+  animation: showPoster 0.5s linear 1 forwards;
+}
+@keyframes showPoster {
+  to {
+    width: 200px;
+  }
+}
+
+.carousel.prev .list .item:nth-child(2) .company,
+.carousel.prev .list .item:nth-child(2) .topic,
+.carousel.prev .list .item:nth-child(2) .description,
+.carousel.prev .list .item:nth-child(2) button {
+  animation: contentOut 1.5s linear 1 forwards;
+}
+@keyframes contentOut {
+  to {
+    transform: translateY(-150px);
+    filter: blur(20px);
+    opacity: 0;
+  }
+}
+
+/*to stop clicking on next or prev until animation finishes*/
+.carousel.next .arrows button,
+.carousel.prev .arrows button {
+  pointer-events: none;
+}
+
+/*Responsive*/
+@media screen and (max-width: 670px) {
+  .carousel .list .item .content .topic {
+    font-size: 30px;
+  }
+
+  .poster{
+    position: absolute;
+    bottom: 50px;
+    left: 10%;
+  }
+  .poster .item img {
+    width: 140px;
+    height: 200px;
+  }
+}
+
+
+@media screen and (max-width: 850px) {
+  .arrows {
+    position: absolute;
+    z-index: 999;
+    left: 75%;
+    top: 90%;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .carousel .list .item button {
+    position: absolute;
+    top: 55%;
+    z-index: 99;
+  }
+}
+@media screen and (max-width: 360px) {
+  .carousel .list .item button {
+    /* position: absolute;
+    top: 60%;
+    z-index: 999; */
+    display: none;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .arrows{
+    top: 90%;
+    left: 300px;
+  }
+
+}
+@media screen and (max-width: 400px) {
+  .arrows{
+    top: 90%;
+    left: 270px;
+  }
+
+}
+@media screen and (max-width: 365px) {
+  .arrows{
+    top: 90%;
+    left: 240px;
+  }
+
+}
+@media screen and (max-width: 340px) {
+  .arrows{
+    top: 90%;
+    left: 210px;
+  }
+
+}
+@media screen and (max-width: 309px) {
+  .arrows{
+    top: 90%;
+    left: 180px;
+  }
+
+}
+@media screen and (max-width: 276px) {
+  .arrows{
+    top: 90%;
+    left: 160px;
+  }
+
+}
