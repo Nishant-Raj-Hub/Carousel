@@ -83,7 +83,8 @@ const App = () => {
     }
   ]);
 
-  const [carouselClass, setCarouselClass] = useState(""); // For animation class
+  // For animation class
+  const [carouselClass, setCarouselClass] = useState(""); 
 
 
 
@@ -92,10 +93,9 @@ const App = () => {
     const updatedItems = [...items];
     const updatedPosterItems = [...posterItems];
 
-    // Add animation class
+    // Adding animation class
     setCarouselClass(type);
 
-    // Update items
     if (type === "next") {
       updatedItems.push(updatedItems.shift());
       updatedPosterItems.push(updatedPosterItems.shift());
@@ -107,8 +107,7 @@ const App = () => {
     setItems(updatedItems);
     setPosterItems(updatedPosterItems);
     
-
-    // Remove animation class after 1.5 seconds (match CSS duration)
+    //removing animation class
     setTimeout(() => setCarouselClass(""), 1500);
   };
 
